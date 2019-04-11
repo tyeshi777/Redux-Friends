@@ -1,4 +1,5 @@
 import React from "react";
+import "./Login.css";
 
 class Login extends React.Component {
   state = {
@@ -17,10 +18,17 @@ class Login extends React.Component {
     });
   };
 
+  login = e => {
+    e.preventDefault();
+    this.props.login(this.state.credentials).then(() => {
+      this.props.history.push("/protected");
+    });
+  };
+
   render() {
     return (
       <div>
-        <form>
+        <form onSubmit={this.login}>
           <input
             type="text"
             name="username"

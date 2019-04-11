@@ -11,7 +11,7 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <ul>
+          <ul className="ul">
             <li>
               <Link to="/login">Login</Link>
             </li>

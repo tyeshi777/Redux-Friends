@@ -17,4 +17,14 @@ class FriendList extends React.Component {
   }
 }
 
-export default FriendList;
+const mapStateToProps = ({ friends, fetchingFriends }) => ({
+  friends,
+  fetchingFriends
+});
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getFriends }
+  )(FriendList)
+);

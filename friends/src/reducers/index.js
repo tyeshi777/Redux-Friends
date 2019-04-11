@@ -1,10 +1,15 @@
 import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE } from "../actions/login";
+import {
+  FETCH_FRIEND_START,
+  FETCH_FRIEND_SUCCESS,
+  FETCH_FRIEND_FAILURE
+} from "../actions";
 
 const initialState = {
   friends: [],
   error: "",
   loggingIn: false,
-  fetchingData: false
+  fetchingFriends: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -13,7 +18,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: "",
-        fetchingData: false,
+        fetchingFriends: false,
         loggingIn: true
       };
     case LOGIN_SUCCESS:
@@ -22,10 +27,27 @@ const reducer = (state = initialState, action) => {
         error: "",
         loggingIn: false
       };
-    case LOGIN_FAILURE:
+    case FETCH_FRIEND_START:
       return {
         ...state,
-        error: "please enter a valid input"
+        error: "",
+        errorStatusCode: null,
+        fetchingFriends: true
+      };
+    case FETCH_FRIEND_SUCCESS:
+      return {
+        ...state,
+        error: "",
+        errorStatusCode: null,
+        fetchingFriends: false,
+        friends: action.payload
+      };
+    case FETCH_FRIEND_FAILURE:
+      return {
+        ...state,
+        fetchingFriends: false,
+        error: action.payload.data.error,
+        errorStatusCode: action.payload.status
       };
     default:
       return state;
